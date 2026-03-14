@@ -59,5 +59,8 @@ public class ManagedObject {
     @Builder.Default
     @Column(nullable = false)
     private Instant createdAt = Instant.now();
+
+    @Column(nullable = false)
+    private String path;
     
 }
