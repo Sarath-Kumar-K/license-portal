@@ -1,5 +1,6 @@
 package com.ksk.portal.repository;
 
+import com.ksk.portal.domain.common.enums.AssignmentStatus;
 import com.ksk.portal.domain.license.LicenseAssignment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,7 @@ public interface LicenseAssignmentRepository
 
     boolean existsByManagedObjectIdAndStatus(
             UUID objectId,
-            String status
+            AssignmentStatus status
     );
 
     @Query("""

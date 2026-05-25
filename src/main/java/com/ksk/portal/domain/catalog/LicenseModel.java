@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import java.util.UUID;
 
+import com.ksk.portal.domain.common.enums.LicenseModelType;
+
 @Entity
 @Table(name = "license_model")
 @Getter
@@ -16,7 +18,8 @@ public class LicenseModel {
     private UUID id;
 
     @Column(nullable = false, unique = true)
-    private String modelCode;
+    @Enumerated(EnumType.STRING)
+    private LicenseModelType modelCode;
 
     private String description;
 }

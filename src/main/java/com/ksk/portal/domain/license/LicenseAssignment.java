@@ -1,5 +1,6 @@
 package com.ksk.portal.domain.license;
 
+import com.ksk.portal.domain.common.enums.AssignmentStatus;
 import com.ksk.portal.domain.managedobject.ManagedObject;
 import com.ksk.portal.domain.metric.MetricDefinition;
 import jakarta.persistence.*;
@@ -36,5 +37,6 @@ public class LicenseAssignment {
 
     private Instant validTo;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private AssignmentStatus status;
 }

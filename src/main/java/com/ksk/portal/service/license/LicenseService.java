@@ -1,9 +1,12 @@
 package com.ksk.portal.service.license;
 
+import com.ksk.portal.domain.common.enums.AssignmentStatus;
 import com.ksk.portal.domain.license.LicenseAssignment;
 import com.ksk.portal.domain.license.LicenseEntitlement;
 import com.ksk.portal.domain.managedobject.ManagedObject;
 import com.ksk.portal.domain.metric.MetricDefinition;
+import com.ksk.portal.exception.LicenseUnavailableException;
+import com.ksk.portal.exception.ResourceNotFoundException;
 import com.ksk.portal.repository.LicenseAssignmentRepository;
 import com.ksk.portal.repository.LicenseEntitlementRepository;
 import com.ksk.portal.repository.ManagedObjectRepository;
@@ -29,7 +32,7 @@ public class LicenseService {
 
         return assignmentRepo.existsByManagedObjectIdAndStatus(
                 objectId,
-                "ACTIVE"
+                AssignmentStatus.ACTIVE
         );
     }
 
@@ -41,7 +44,11 @@ public class LicenseService {
                                 licenseId,
                                 metricId
                         )
-                        .orElseThrow();
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "License entitlement not found"
+                                )
+                        );
 
         int assigned =
                 assignmentRepo.getTotalAssigned(metricId);
@@ -64,7 +71,9 @@ public class LicenseService {
                 getAvailable(metricId, licenseId);
 
         if (available <= 0) {
-            return false;
+                throw new LicenseUnavailableException(
+                        "No available licenses"
+                );
         }
 
         LicenseAssignment assignment =
@@ -85,7 +94,7 @@ public class LicenseService {
 
         assignment.setValidFrom(Instant.now());
 
-        assignment.setStatus("ACTIVE");
+        assignment.setStatus(AssignmentStatus.ACTIVE);
 
         assignmentRepo.save(assignment);
 

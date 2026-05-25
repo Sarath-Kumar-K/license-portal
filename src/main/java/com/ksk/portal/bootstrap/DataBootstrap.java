@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.ksk.portal.domain.account.Account;
+import com.ksk.portal.domain.common.enums.AccountType;
+import com.ksk.portal.domain.common.enums.MetricCode;
+import com.ksk.portal.domain.common.enums.ObjectType;
 import com.ksk.portal.domain.managedobject.ManagedObject;
 import com.ksk.portal.domain.metric.MetricDefinition;
 import com.ksk.portal.domain.metric.ObjectMetricUsage;
@@ -35,7 +38,7 @@ public class DataBootstrap {
             Account account = 
                     Account.builder()
                             .id(UUID.randomUUID())
-                            .accountType("CUSTOMER")
+                            .accountType(AccountType.CUSTOMER)
                             .name("ABC Corp")
                             .build();
                             account.setParentAccount(account);
@@ -62,7 +65,7 @@ public class DataBootstrap {
                             .id(UUID.randomUUID())
                             .objectUid("backup-01")
                             .productTenant(tenant)
-                            .objectType("BACKUP")
+                            .objectType(ObjectType.BACKUP)
                             .name("HyperV Backup")
                             .productInstance(pi)
                             .build()
@@ -72,7 +75,7 @@ public class DataBootstrap {
                     .id(UUID.randomUUID())
                     .objectUid("host-01")
                     .productTenant(tenant)
-                    .objectType("HOST")
+                    .objectType(ObjectType.HOST)
                     .name("HyperV Host")
                     .productInstance(pi)
                     .parent(backup)
@@ -82,7 +85,7 @@ public class DataBootstrap {
             MetricDefinition cpuSocket = metricRepo.save(
                 MetricDefinition.builder()
                 .id(UUID.randomUUID())
-                .metricCode("CPU_SOCKET")
+                .metricCode(MetricCode.CPU_SOCKET)
                 .unit("COUNT")
                 .description("CPU sockets on host")
                 .build()
@@ -91,7 +94,7 @@ public class DataBootstrap {
             MetricDefinition vmMetric = metricRepo.save(
                 MetricDefinition.builder()
                 .id(UUID.randomUUID())
-                .metricCode("VM")
+                .metricCode(MetricCode.VM)
                 .unit("COUNT")
                 .description("Virtual machine count")
                 .build()

@@ -3,8 +3,12 @@ package com.ksk.portal.domain.account;
 import java.time.Instant;
 import java.util.UUID;
 
+import com.ksk.portal.domain.common.enums.AccountType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -31,7 +35,8 @@ public class Account {
     private Account parentAccount;
 
     @Column(nullable = false)
-    private String accountType;
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
 
     @Column(nullable = false)
     private String name;

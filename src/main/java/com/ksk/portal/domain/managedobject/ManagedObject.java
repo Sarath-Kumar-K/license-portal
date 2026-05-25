@@ -2,6 +2,8 @@ package com.ksk.portal.domain.managedobject;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -15,6 +17,7 @@ import lombok.Setter;
 import java.time.Instant;
 import java.util.UUID;
 
+import com.ksk.portal.domain.common.enums.ObjectType;
 import com.ksk.portal.domain.product.ProductInstance;
 import com.ksk.portal.domain.product.ProductTenant;
 
@@ -48,7 +51,8 @@ public class ManagedObject {
     private ProductTenant productTenant;
 
     @Column(nullable = false)
-    private String objectType;
+    @Enumerated(EnumType.STRING)
+    private ObjectType objectType;
 
     private String name;
 

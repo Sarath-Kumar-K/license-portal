@@ -6,7 +6,7 @@ import com.ksk.portal.dto.license.LicenseCheckResponse;
 import com.ksk.portal.service.license.LicenseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -22,7 +22,7 @@ public class LicenseController {
 
     @PostMapping("/assign")
     public String assignLicense(
-            @RequestBody AssignLicenseRequest request
+           @Valid @RequestBody AssignLicenseRequest request
     ) {
 
         boolean assigned =
